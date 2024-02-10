@@ -1,7 +1,15 @@
+# Assuming the base image remains targeted at ROS Humble
 FROM osrf/ros:humble-desktop-full
 
 ARG WORKSPACE=humble_dev_ws
 WORKDIR /root/$WORKSPACE
+
+# Additional environment variables and existing setup omitted for brevity
+
+# Clone navigation2 repository (adjust branch as necessary)
+RUN apt-get update && apt-get install -y git && \
+    git clone https://github.com/ros-planning/navigation2.git --branch main src/navigation2 && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
